@@ -5,4 +5,4 @@ mvn package && \
 java $JAVA_OPTS \
           -DPORT=8085 \
           -Drestolino.packageprefix=com.github.onsdigital.csdbimport.api \
-          -jar target/csdb-import-0.0.1-SNAPSHOT-jar-with-dependencies.jar
+          -jar target/csdbimport-0.0.1-SNAPSHOT-jar-with-dependencies.jar

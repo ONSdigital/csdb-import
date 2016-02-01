@@ -26,7 +26,7 @@ public class Configuration {
         private static final String CSDB_DATA_DIR_ENV = "CSDB_DATA_DIR";
 
         public static String getCsdbDataDir() {
-            return get(CSDB_DATA_DIR_ENV, "");
+            return get(CSDB_DATA_DIR_ENV, System.getProperty("user.dir") + "/csdb");
         }
     }
 
@@ -50,7 +50,7 @@ public class Configuration {
      * @return The result of {@link #get(String)}, or <code>defaultValue</code> if that result is blank.
      */
     public static String get(String key, String defaultValue) {
-        return get(StringUtils.defaultIfBlank(get(key), defaultValue));
+        return StringUtils.defaultIfBlank(get(key), defaultValue);
     }
 
 }
