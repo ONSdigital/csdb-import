@@ -20,15 +20,15 @@ import java.util.zip.ZipInputStream;
 public class CSDBImport implements Startup {
     @Override
     public void init() {
-        PublicKeyAuthenticator publicKeyAuthenticator = new AuthorizedKeysDecoder(Configuration.SCP_AUTHORIZED_KEYS);
+        PublicKeyAuthenticator publicKeyAuthenticator = new AuthorizedKeysDecoder(Configuration.SCP.getAuthorizedKeys());
 
         SSHServer sshServer = new SSHServer();
         sshServer.setPublicKeyAuthenticator(publicKeyAuthenticator);
-        sshServer.setScpRootDir(Configuration.SCP_ROOT_DIR);
+        sshServer.setScpRootDir(Configuration.SCP.getRootDir());
 
         sshServer.setScpFileReceivedHandler((Path path) -> {
             try {
-                byte bytes[] = Files.readAllBytes(FileSystems.getDefault().getPath(Configuration.SCP_ROOT_DIR + path.toString()));
+                byte bytes[] = Files.readAllBytes(FileSystems.getDefault().getPath(Configuration.SCP.getRootDir() + path.toString()));
                 ZipInputStream zis = new ZipInputStream(new ByteArrayInputStream(bytes));
                 ZipEntry entry;
                 while((entry = zis.getNextEntry())!=null) {

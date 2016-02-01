@@ -2,13 +2,33 @@ package com.github.onsdigital.csdbimport.helpers;
 
 import org.apache.commons.lang3.StringUtils;
 
+import java.nio.file.Files;
+
 /**
  * Convenience class to get configuration values from {@link System#getProperty(String)} or gracefully fall back to {@link System#getenv()}.
  */
 public class Configuration {
 
-    public static final String SCP_ROOT_DIR = System.getProperty("user.dir");
-    public static final String SCP_AUTHORIZED_KEYS = System.getProperty("user.home") + "/.ssh/authorized_keys";
+    public static class SCP {
+        private static final String ROOT_DIR_ENV = "SCP_ROOT_DIR";
+        private static final String AUTHORIZED_KEYS_ENV = "SCP_AUTHORIZED_KEYS";
+
+        public static String getRootDir() {
+            return get(ROOT_DIR_ENV, System.getProperty("user.dir"));
+        }
+
+        public static String getAuthorizedKeys() {
+            return get(AUTHORIZED_KEYS_ENV, System.getProperty("user.home") + "/.ssh/authorized_keys");
+        }
+    }
+
+    public static class CSDB {
+        private static final String CSDB_DATA_DIR_ENV = "CSDB_DATA_DIR";
+
+        public static String getCsdbDataDir() {
+            return get(CSDB_DATA_DIR_ENV, "");
+        }
+    }
 
     /**
      * Gets a configuration value from {@link System#getProperty(String)}, falling back to {@link System#getenv()}

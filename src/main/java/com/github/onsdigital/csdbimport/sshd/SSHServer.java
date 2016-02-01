@@ -49,9 +49,9 @@ public class SSHServer {
             return vfs;
         });
 
-        sshd.setPublickeyAuthenticator((String s, PublicKey publicKey, ServerSession serverSession) -> {
-            return publicKeyAuthenticator != null && publicKey instanceof RSAPublicKey && publicKeyAuthenticator.isValid(s, publicKey);
-        });
+        sshd.setPublickeyAuthenticator((String s, PublicKey publicKey, ServerSession serverSession) ->
+            publicKeyAuthenticator != null && publicKey instanceof RSAPublicKey && publicKeyAuthenticator.isValid(s, publicKey)
+        );
 
         ScpCommandFactory scp = new ScpCommandFactory();
         scp.addEventListener(new ScpTransferEventListener() {
